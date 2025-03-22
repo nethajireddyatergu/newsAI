@@ -6,13 +6,14 @@ from pydantic import BaseModel
 import google.generativeai as genai
 import requests
 from bs4 import BeautifulSoup
+from dotenv import load_dotenv
+
 
 app = FastAPI()
+load_dotenv()  # This is for local dev; won't affect production
 
-API_KEY = "6dc42d978560bdd7df95c6964c17c3df"  # Replace this with your GNews API key
-
-# Initialize Gemini API
-genai.configure(api_key="AIzaSyDlhZlabh0w5UKsaKfCs7tXzLnYc2CBODY")
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+API_KEY = os.getenv("GNEWS_API_KEY")
 
 model = genai.GenerativeModel('gemini-1.5-pro') 
 app = FastAPI()
